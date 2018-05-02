@@ -6,7 +6,11 @@
 	<groupId>com.zc</groupId>
 	<artifactId>comzc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<modules>
+		<module>rbmqsend</module>
+		<module>rbmqrecv</module>
+	</modules>
+	<packaging>pom</packaging>
 
 	<name>spbtworkspace</name>
 	<description>Spring Boot WorkSpace</description>
