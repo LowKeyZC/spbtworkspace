@@ -23,3 +23,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/scheduling/mvnw.cmd
+/scheduling/mvnw
+/scheduling/.mvn/

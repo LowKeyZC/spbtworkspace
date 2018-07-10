@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" type="text/css"
+          href="../static/jquery-easyui-1.3.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css"
+          href="../static/jquery-easyui-1.3.5/themes/icon.css">
+    <script type="text/javascript"
+            src="../static/jquery-easyui-1.3.5/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="../static/jquery-easyui-1.3.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript"
+            src="../static/jquery-easyui-1.3.5/locale/easyui-lang-zh_CN.js">
+    </script>
+</head>
+
+<body style="margin:1px;" id="ff">
+    <!--用户列表-->
+    <table id="dg" title="用户列表" class="easyui-datagrid" pagination="true"
+           rownumbers="true" fit="true"
+           url="/list" toolbar="#tb">
+        <thead data-options="frozen:true">
+            <tr>
+                <th field="cb" checkbox="true" align="center"></th>
+                <th field="id" width="50" align="center">ID</th>
+                <th field="name" width="120" align="center">名称</th>
+                <th field="age" width="40" align="center">年龄</th>
+            </tr>
+        </thead>
+    </table>
+    <!--用户列表关联按钮-->
+    <div id="tb">
+        <div>
+            <a href="javascript:openBookListAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
+            <a href="javascript:openBookListModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
+            <a href="javascript:deleteBookList()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+            <a href="javascript:buttonTest()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">按钮测试</a>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    /**
+     *     alert按钮测试
+     */
+    function buttonTest(){
+        $.messager.alert("系统提示", "alert test");
+    }
+</script>
+</html>
