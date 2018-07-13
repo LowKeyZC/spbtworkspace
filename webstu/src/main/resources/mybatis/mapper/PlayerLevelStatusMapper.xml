@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zc.dao.PlayerLevelStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.zc.domain.PlayerLevelStatus" >
+    <id column="pls_id" property="plsId" jdbcType="VARCHAR" />
+    <result column="pls_player_id" property="plsPlayerId" jdbcType="VARCHAR" />
+    <result column="pls_level_id" property="plsLevelId" jdbcType="VARCHAR" />
+    <result column="pls_status" property="plsStatus" jdbcType="INTEGER" />
+    <result column="pls_create_tm" property="plsCreateTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pls_id, pls_player_id, pls_level_id, pls_status, pls_create_tm
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_game_player_level_status
+    where pls_id = #{plsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_game_player_level_status
+    where pls_id = #{plsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zc.domain.PlayerLevelStatus" >
+    insert into tb_game_player_level_status (pls_id, pls_player_id, pls_level_id, 
+      pls_status, pls_create_tm)
+    values (#{plsId,jdbcType=VARCHAR}, #{plsPlayerId,jdbcType=VARCHAR}, #{plsLevelId,jdbcType=VARCHAR}, 
+      #{plsStatus,jdbcType=INTEGER}, #{plsCreateTm,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zc.domain.PlayerLevelStatus" >
+    insert into tb_game_player_level_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="plsId != null" >
+        pls_id,
+      </if>
+      <if test="plsPlayerId != null" >
+        pls_player_id,
+      </if>
+      <if test="plsLevelId != null" >
+        pls_level_id,
+      </if>
+      <if test="plsStatus != null" >
+        pls_status,
+      </if>
+      <if test="plsCreateTm != null" >
+        pls_create_tm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="plsId != null" >
+        #{plsId,jdbcType=VARCHAR},
+      </if>
+      <if test="plsPlayerId != null" >
+        #{plsPlayerId,jdbcType=VARCHAR},
+      </if>
+      <if test="plsLevelId != null" >
+        #{plsLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="plsStatus != null" >
+        #{plsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="plsCreateTm != null" >
+        #{plsCreateTm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.domain.PlayerLevelStatus" >
+    update tb_game_player_level_status
+    <set >
+      <if test="plsPlayerId != null" >
+        pls_player_id = #{plsPlayerId,jdbcType=VARCHAR},
+      </if>
+      <if test="plsLevelId != null" >
+        pls_level_id = #{plsLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="plsStatus != null" >
+        pls_status = #{plsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="plsCreateTm != null" >
+        pls_create_tm = #{plsCreateTm,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pls_id = #{plsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zc.domain.PlayerLevelStatus" >
+    update tb_game_player_level_status
+    set pls_player_id = #{plsPlayerId,jdbcType=VARCHAR},
+      pls_level_id = #{plsLevelId,jdbcType=VARCHAR},
+      pls_status = #{plsStatus,jdbcType=INTEGER},
+      pls_create_tm = #{plsCreateTm,jdbcType=TIMESTAMP}
+    where pls_id = #{plsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

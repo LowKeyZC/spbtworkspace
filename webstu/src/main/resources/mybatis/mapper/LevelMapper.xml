@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zc.dao.LevelMapper" >
+  <resultMap id="BaseResultMap" type="com.zc.domain.Level" >
+    <id column="l_id" property="lId" jdbcType="VARCHAR" />
+    <result column="l_order" property="lOrder" jdbcType="INTEGER" />
+    <result column="l_name" property="lName" jdbcType="VARCHAR" />
+    <result column="l_paper_id" property="lPaperId" jdbcType="VARCHAR" />
+    <result column="l_create_tm" property="lCreateTm" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    l_id, l_order, l_name, l_paper_id, l_create_tm
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_game_level
+    where l_id = #{lId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_game_level
+    where l_id = #{lId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zc.domain.Level" >
+    insert into tb_game_level (l_id, l_order, l_name, 
+      l_paper_id, l_create_tm)
+    values (#{lId,jdbcType=VARCHAR}, #{lOrder,jdbcType=INTEGER}, #{lName,jdbcType=VARCHAR}, 
+      #{lPaperId,jdbcType=VARCHAR}, #{lCreateTm,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zc.domain.Level" >
+    insert into tb_game_level
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lId != null" >
+        l_id,
+      </if>
+      <if test="lOrder != null" >
+        l_order,
+      </if>
+      <if test="lName != null" >
+        l_name,
+      </if>
+      <if test="lPaperId != null" >
+        l_paper_id,
+      </if>
+      <if test="lCreateTm != null" >
+        l_create_tm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lId != null" >
+        #{lId,jdbcType=VARCHAR},
+      </if>
+      <if test="lOrder != null" >
+        #{lOrder,jdbcType=INTEGER},
+      </if>
+      <if test="lName != null" >
+        #{lName,jdbcType=VARCHAR},
+      </if>
+      <if test="lPaperId != null" >
+        #{lPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="lCreateTm != null" >
+        #{lCreateTm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zc.domain.Level" >
+    update tb_game_level
+    <set >
+      <if test="lOrder != null" >
+        l_order = #{lOrder,jdbcType=INTEGER},
+      </if>
+      <if test="lName != null" >
+        l_name = #{lName,jdbcType=VARCHAR},
+      </if>
+      <if test="lPaperId != null" >
+        l_paper_id = #{lPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="lCreateTm != null" >
+        l_create_tm = #{lCreateTm,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where l_id = #{lId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zc.domain.Level" >
+    update tb_game_level
+    set l_order = #{lOrder,jdbcType=INTEGER},
+      l_name = #{lName,jdbcType=VARCHAR},
+      l_paper_id = #{lPaperId,jdbcType=VARCHAR},
+      l_create_tm = #{lCreateTm,jdbcType=TIMESTAMP}
+    where l_id = #{lId,jdbcType=VARCHAR}
+  </update>
+</mapper>
