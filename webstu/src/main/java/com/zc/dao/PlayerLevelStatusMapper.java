@@ -1,7 +1,9 @@
 package com.zc.dao;
 
 import com.zc.domain.PlayerLevelStatus;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface PlayerLevelStatusMapper {
     int deleteByPrimaryKey(String plsId);
 

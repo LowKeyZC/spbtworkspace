@@ -5,15 +5,24 @@
     <id column="p_id" property="pId" jdbcType="VARCHAR" />
     <result column="p_name" property="pName" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    p_id, p_name
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_game_player
-    where p_id = #{pId,jdbcType=VARCHAR}
+
+  <select id="queryOneOrList" resultMap="BaseResultMap" parameterType="Map">
+    SELECT * FROM tb_game_player WHERE TRUE
+    <if test="pId != null and pId !=''">
+      AND p_id = #{pId}
+    </if>
+    <if test="pName != null and pName !=''">
+      AND p_name = #{pName}
+    </if>
+    <if test="start != null and start !='' and size != null and size != ''">
+      LIMIT #{start},#{size}
+    </if>
   </select>
+
+  <select id="queryPlayerCount" resultType="Long">
+    SELECT count(*) FROM tb_game_player
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_game_player
     where p_id = #{pId,jdbcType=VARCHAR}
@@ -41,6 +50,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.zc.domain.Player" >
     update tb_game_player
     <set >

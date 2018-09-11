@@ -1,7 +1,12 @@
 package com.zc.dao;
 
 import com.zc.domain.Player;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
+@Mapper
 public interface PlayerMapper {
     int deleteByPrimaryKey(String pId);
 
@@ -9,7 +14,9 @@ public interface PlayerMapper {
 
     int insertSelective(Player record);
 
-    Player selectByPrimaryKey(String pId);
+    List<Player> queryOneOrList(Map<String, Object> map);
+
+    Long queryPlayerCount();
 
     int updateByPrimaryKeySelective(Player record);
 

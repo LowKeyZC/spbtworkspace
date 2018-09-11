@@ -8,25 +8,57 @@
     <result column="l_paper_id" property="lPaperId" jdbcType="VARCHAR" />
     <result column="l_create_tm" property="lCreateTm" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    l_id, l_order, l_name, l_paper_id, l_create_tm
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_game_level
-    where l_id = #{lId,jdbcType=VARCHAR}
+
+  <select id="queryByCondition" resultMap="BaseResultMap" parameterType="levelCondition">
+    SELECT * FROM tb_game_level WHERE TRUE
+    <if test="lId != null and lId !=''">
+      AND l_id = #{lId}
+    </if>
+    <if test="lOrder != null and lOrder != '' or lOrder == 0">
+      AND l_order = #{lOrder}
+    </if>
+    <if test="lName != null and lName !=''">
+      AND l_name = #{lName}
+    </if>
+    <if test="lPaperId != null and lPaperId !=''">
+      AND l_paper_id = #{lPaperId}
+    </if>
+    <if test="sortRule != null and sortRule != ''">
+      ORDER BY ${sortRule}
+    </if>
+    <if test="start != null and start !='' or start == 0 and size != null and size !='' or size == 0">
+      LIMIT #{start},#{size}
+    </if>
   </select>
+
+  <select id="queryLevelCount" resultType="Long" parameterType="levelCondition">
+    SELECT count(*) FROM tb_game_level WHERE TRUE
+    <if test="lId != null and lId !=''">
+      AND l_id = #{lId}
+    </if>
+    <if test="lOrder != null and lOrder != ''">
+      AND l_order = #{lOrder}
+    </if>
+    <if test="lName != null and lName !=''">
+      AND l_name = #{lName}
+    </if>
+    <if test="lPaperId != null and lPaperId !=''">
+      AND l_paper_id = #{lPaperId}
+    </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_game_level
     where l_id = #{lId,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" parameterType="com.zc.domain.Level" >
-    insert into tb_game_level (l_id, l_order, l_name, 
+    insert into tb_game_level (l_id, l_order, l_name,
       l_paper_id, l_create_tm)
     values (#{lId,jdbcType=VARCHAR}, #{lOrder,jdbcType=INTEGER}, #{lName,jdbcType=VARCHAR}, 
       #{lPaperId,jdbcType=VARCHAR}, #{lCreateTm,jdbcType=TIMESTAMP})
   </insert>
+
   <insert id="insertSelective" parameterType="com.zc.domain.Level" >
     insert into tb_game_level
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -64,6 +96,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.zc.domain.Level" >
     update tb_game_level
     <set >
@@ -82,6 +115,7 @@
     </set>
     where l_id = #{lId,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.zc.domain.Level" >
     update tb_game_level
     set l_order = #{lOrder,jdbcType=INTEGER},

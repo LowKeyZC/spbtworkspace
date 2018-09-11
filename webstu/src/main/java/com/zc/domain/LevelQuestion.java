@@ -5,6 +5,8 @@ public class LevelQuestion {
 
     private String lqLevelId;
 
+    private String lqPaperId;
+
     private String lqContent;
 
     private Integer lqOrder;
@@ -25,6 +27,14 @@ public class LevelQuestion {
 
     public void setLqLevelId(String lqLevelId) {
         this.lqLevelId = lqLevelId == null ? null : lqLevelId.trim();
+    }
+
+    public String getLqPaperId() {
+        return lqPaperId;
+    }
+
+    public void setLqPaperId(String lqPaperId) {
+        this.lqPaperId = lqPaperId;
     }
 
     public String getLqContent() {

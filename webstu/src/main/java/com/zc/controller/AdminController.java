@@ -1,14 +1,18 @@
 package com.zc.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.zc.common.PageBean;
+import com.zc.domain.Player;
 import com.zc.domain.User;
 import com.zc.service.UserService;
 import com.zc.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class AdminController {
@@ -28,6 +29,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Value("aaabbb")
+    private static String prop;
 
     @GetMapping("/home")
     public String index(Map<String, Object> map) {
@@ -39,6 +43,11 @@ public class AdminController {
     @GetMapping("/userList")
     public String userList(){
         return "user";
+    }
+
+    @GetMapping("/palyerList")
+    public String palyerList(){
+        return "player";
     }
 
     /**
@@ -74,5 +83,12 @@ public class AdminController {
             e.printStackTrace();
             return e.getMessage();
         }
+    }
+
+    public static void main(String[] args) {
+        int x = 9,y = 10;
+        int z = x++ + y;
+        System.out.println("x:" + x + "z:" + z);
+        Collections.sort(null);
     }
 }
