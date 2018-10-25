@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class HelloReceive {
 
-//    @RabbitListener(queues="queue")
-//    public void processC(String str) {
-//        System.out.println("Receive:"+str);
-//    }
+    @RabbitListener(queues="queue")
+    public void processC(String str) {
+        System.out.println("Receive:"+str);
+    }
     @RabbitListener(queues="topic.message")
     public void process1(String str) {
         System.out.println("message:"+str);
