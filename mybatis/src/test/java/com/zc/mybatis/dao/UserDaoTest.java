@@ -11,6 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,10 +24,35 @@ public class UserDaoTest {
 
     @Test
     public void test1_Add() {
-        userDao.addUser(new User("333", 12, "springboot-mybatis-stu"));
-        userDao.addUser(new User("444", 12, "springboot-mybatis-stu"));
-        userDao.addUser(new User("555", 12, "springboot-mybatis-stu"));
-        userDao.addUser(new User("666", 12, "springboot-mybatis-stu"));
+        User user = new User();
+        user.setName("aaa");
+        Long starTM = System.currentTimeMillis();
+        for (int i=0;i<100000;i++) {
+            user.setId(String.valueOf(i));
+            userDao.addUser(user);
+        }
+        Long endTM = System.currentTimeMillis();
+        System.out.println("单线程插入100000条记录耗时：" + (endTM - starTM));
+        /*单线程插入100000条记录耗时：303855*/
+    }
+
+    @Test
+    public void test2_Add() {
+        User user = new User();
+        user.setName("aaa");
+        Long starTM = System.currentTimeMillis();
+
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(100);
+        for (int i = 0; i < 100000; i++) {
+            final String j = String.valueOf(i);
+            fixedThreadPool.execute(() -> {
+                user.setId(j);
+                userDao.addUser(user);
+            });
+        }
+
+        Long endTM = System.currentTimeMillis();
+        System.out.println("多线程插入100000条记录耗时：" + (endTM - starTM));
     }
 
     @Test

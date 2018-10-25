@@ -5,12 +5,6 @@ public class User {
     private String name;
     private Integer age;
 
-    public User(String id,Integer age,String name) {
-        this.id = id;
-        this.age = age;
-        this.name = name;
-    }
-
     public String getId() {
         return id;
     }
