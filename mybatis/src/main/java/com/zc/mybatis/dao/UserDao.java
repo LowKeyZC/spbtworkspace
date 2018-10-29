@@ -2,6 +2,7 @@ package com.zc.mybatis.dao;
 
 import com.zc.mybatis.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface UserDao {
     List<User> queryUsers();
 
-    User queryUserById(String userId);
+    User queryUserById(String id);
 
     void addUser(User user);
 

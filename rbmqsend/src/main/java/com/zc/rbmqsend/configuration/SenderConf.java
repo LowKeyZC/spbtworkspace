@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SenderConf {
-//    @Bean
-//    public Queue queue() {
-//        return new Queue("queue");
-//    }
+    @Bean
+    public Queue queue() {
+        return new Queue("queue");
+    }
     @Bean(name = "message")
     public Queue queueMessage(){
         return new Queue("topic.message");

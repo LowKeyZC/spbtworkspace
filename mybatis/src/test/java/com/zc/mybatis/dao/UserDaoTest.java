@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -57,7 +58,7 @@ public class UserDaoTest {
 
     @Test
     public void test2_Query() {
-        User user = userDao.queryUserById("111");
+        User user = userDao.queryUserById("123");
         Assert.assertNotNull(user);
     }
 
@@ -69,7 +70,7 @@ public class UserDaoTest {
 
     @Test
     public void test4_Upd() {
-        User user = userDao.queryUserById("111");
+        User user = userDao.queryUserById("123");
         user.setName("change-name");
         userDao.updUser(user);
     }
