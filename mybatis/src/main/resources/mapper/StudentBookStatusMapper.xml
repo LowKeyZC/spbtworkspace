@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zc.mybatis.dao.StudentBookStatusDao">
+
+	<resultMap type="com.zc.mybatis.entity.StudentBookStatus" id="sbsResult">
+		<id property="id" column="sbs_id" jdbcType="VARCHAR" />
+		<result property="studentId" column="sbs_student_id" jdbcType="VARCHAR" />
+		<result property="gradeId" column="sbs_gra_id" jdbcType="VARCHAR" />
+		<result property="bookId" column="sbs_book_id" jdbcType="VARCHAR" />
+		<result property="status" column="sbs_status" jdbcType="INTEGER" />
+		<result property="wordNum" column="sbs_word_num" jdbcType="INTEGER" />
+		<result property="wordTotalNum" column="sbs_total_word_num" jdbcType="INTEGER" />
+		<result property="pkNum" column="sbs_pk_num" jdbcType="INTEGER" />
+		<result property="usedPKNum" column="sbs_used_pk_num" jdbcType="INTEGER" />
+		<result property="createDate" column="sbs_create_tm" jdbcType="TIMESTAMP" />
+		<result property="modifyDate" column="sbs_modify_tm" jdbcType="TIMESTAMP" />
+		<result property="isDelete" column="sbs_delete" jdbcType="INTEGER" />
+		<result property="levelNum" column="sbs_level_num" jdbcType="INTEGER" />
+		<result property="passLevelNum" column="sbs_pass_level_num" jdbcType="INTEGER" />
+		<result property="stuGradeId" column="sbs_stu_gra_id" jdbcType="VARCHAR" />
+		<result property="boxStatus" column="sbs_box_status" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<insert id="insertOne" useGeneratedKeys="true"
+		keyProperty="id" parameterType="com.zc.mybatis.entity.StudentBookStatus">
+		insert into tb_library_student_book_status
+		(sbs_id,sbs_level_num,sbs_pass_level_num,sbs_total_word_num,
+		sbs_student_id,
+		sbs_gra_id,
+		sbs_book_id,
+		sbs_status,
+		sbs_word_num,
+		sbs_pk_num,
+		sbs_used_pk_num,
+		sbs_create_tm,
+		sbs_modify_tm,
+		sbs_delete,
+		sbs_stu_gra_id
+		)
+		values(
+		 #{id}, #{levelNum},#{passLevelNum},#{wordTotalNum},
+		 #{studentId},
+		 #{gradeId},
+		 #{bookId},
+		 #{status},
+		 #{wordNum},
+		 #{pkNum},
+		 #{usedPKNum},
+		 now(),now(),0,#{stuGradeId}
+		)
+	</insert>
+
+
+	<select id="queryOneOrList" parameterType="Map" resultMap="sbsResult">
+		SELECT * FROM tb_library_student_book_status WHERE sbs_delete = 0
+		AND sbs_student_id = "f321a80bd37a4c108860b43e1a358142"
+	</select>
+	
+	<select id="queryListByBookIds" parameterType="Map" resultMap="sbsResult">
+		SELECT * FROM tb_library_student_book_status WHERE sbs_delete = 0  			
+		<if test="status != null and status !=''">
+			AND sbs_status = #{status}
+		</if>
+		 AND sbs_student_id = #{studentId}
+		 and sbs_book_id in
+        <foreach item="item" index="index" collection="bookIds" open="(" separator="," close=")">  
+    		 #{item}  
+   		 </foreach>  
+	</select>
+	
+	<select id="queryListByIds" parameterType="Map" resultMap="sbsResult">
+		SELECT * FROM tb_library_student_book_status WHERE sbs_delete = 0  			
+		 AND sbs_student_id = #{studentId}
+		 and sbs_id in
+		<foreach collection="list" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+	</select>
+
+	<!--查询正在阅读和已读完图书数量-->
+	<select id="queryReadBookCount" parameterType="java.lang.String" resultType="Long">
+		SELECT count(*) FROM tb_library_student_book_status WHERE sbs_student_id = #{studentId}
+		AND (sbs_status = 1 OR sbs_status = 2);
+	</select>
+	
+	<!-- 修改 -->
+	<update id="updateOneForEveryAnswer" parameterType="com.zc.mybatis.entity.StudentBookStatus">
+		UPDATE tb_library_student_book_status 
+		  set	sbs_modify_tm = now()
+		WHERE sbs_delete = 0
+		<if test="id != null and id !=''">
+			AND sbs_id = #{id}
+		</if>
+		<if test="studentId != null and studentId !=''">
+			AND sbs_student_id = #{studentId}
+		</if>
+		<if test="bookId != null and bookId !=''">
+			AND sbs_book_id = #{bookId}
+		</if>
+	</update>
+	
+	<!-- 修改 -->
+	<update id="updateStatusForFirstPass" parameterType="com.zc.mybatis.entity.StudentBookStatus">
+		UPDATE tb_library_student_book_status 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="status!=0 ">sbs_status=#{status},</if>
+			<if test="pkNum!=0">sbs_pk_num=#{pkNum},</if>
+			<if test="wordNum!=0">sbs_word_num=#{wordNum},</if>
+			<if test="passLevelNum!=0">sbs_pass_level_num=#{passLevelNum},</if>
+			sbs_modify_tm = now()
+		</trim>
+		WHERE sbs_delete = 0
+		
+		<if test="id != null and id !=''">
+			AND sbs_id = #{id}
+		</if>
+		<if test="studentId != null and studentId !=''">
+			AND sbs_student_id = #{studentId}
+		</if>
+		<if test="bookId != null and bookId !=''">
+			AND sbs_book_id = #{bookId}
+		</if>
+	
+	</update>
+	
+	<!-- 游戏结算修改 -->
+	<update id="updateStatusForEndGame" parameterType="com.zc.mybatis.entity.StudentBookStatus">
+		UPDATE tb_library_student_book_status 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="boxStatus!=0 ">sbs_box_status=#{boxStatus},</if>
+			<if test="usedPKNum!=0">sbs_used_pk_num=#{usedPKNum},</if>
+			sbs_modify_tm = now()
+		</trim>
+		WHERE sbs_delete = 0
+		<if test="id != null and id !=''">
+			AND sbs_id = #{id}
+		</if>
+		<if test="studentId != null and studentId !=''">
+			AND sbs_student_id = #{studentId}
+		</if>
+		<if test="bookId != null and bookId !=''">
+			AND sbs_book_id = #{bookId}
+		</if>
+	</update>
+
+	<!--通过图书ID查询各状态学生人数 1018添加-->
+	<select id="queryStatusPersonNumByBookId" resultType="Long" parameterType="java.lang.String">
+		SELECT COUNT(1) as personNum
+		FROM tb_library_student_book_status
+		WHERE sbs_student_id = "f321a80bd37a4c108860b43e1a358142";
+	</select>
+
+	<!--通过ID查询-->
+	<select id="selectById" resultMap="sbsResult" parameterType="java.lang.String">
+		SELECT * FROM tb_library_student_book_status WHERE sbs_id = #{id}
+	</select>
+
+	<!-- 查询学生最近阅读(正在读+已读完) 1018添加 -->
+	<select id="queryReadingAndAllByStudentId" parameterType="Map" resultMap="sbsResult">
+		SELECT * FROM tb_library_student_book_status WHERE sbs_delete = 0
+		AND sbs_student_id = #{studentId}
+		AND (sbs_status = 1 OR sbs_status = 2)
+		ORDER BY sbs_modify_tm DESC
+		<if test="showNum != 0">
+			LIMIT #{showNum}
+		</if>
+	</select>
+
+</mapper>

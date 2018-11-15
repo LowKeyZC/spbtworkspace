@@ -15,7 +15,7 @@ public class SchedulingApplication {
 		SpringApplication.run(SchedulingApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public TaskScheduler taskScheduler(){
 		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
 		//线程池大小
@@ -23,5 +23,5 @@ public class SchedulingApplication {
 		//线程池前缀
 		taskScheduler.setThreadNamePrefix("springboot-task");
 		return taskScheduler;
-	}
+	}*/
 }

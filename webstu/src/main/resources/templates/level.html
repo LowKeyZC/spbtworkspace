@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- @author 夏茂轩@成都信息工程学院 QQ：1034297177 -->
+    <meta charset="utf-8"/>
+    <title></title>
+    <script type="text/javascript" src="jquery-easyui-1.3.5/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("#test").change(function () {
+                var objUrl = getObjectURL(this.files[0]);
+                console.info(objUrl);
+                $("#audio").attr("src", objUrl);
+                $("#audio")[0].play();
+                $("#audio").show();
+                getTime();
+            });
+        });
+        <!--获取mp3文件的时间 兼容浏览器-->
+        function getTime() {
+            setTimeout(function () {
+                var duration = $("#audio")[0].duration;
+                if(isNaN(duration)){
+                    getTime();
+                }
+                else{
+                    console.info("该歌曲的总时间为："+$("#audio")[0].duration+"秒")
+                }
+            }, 10);
+        }
+        <!--把文件转换成可读URL-->
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) { // basic
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+    </script>
+</head>
+<body>
+<input id="test" type="file" multiple="multiple"/>
+<audio id="audio" controls="" style="display: none;"></audio>
+</body>
+</html>

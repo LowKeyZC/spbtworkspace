@@ -85,10 +85,8 @@ public class AdminController {
         }
     }
 
-    public static void main(String[] args) {
-        int x = 9,y = 10;
-        int z = x++ + y;
-        System.out.println("x:" + x + "z:" + z);
-        Collections.sort(null);
+    @RequestMapping(value = "/test")
+    public String test() {
+        return "level";
     }
 }

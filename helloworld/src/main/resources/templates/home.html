@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+    <script src="bootstrap3/js/jquery-1.11.2.min.js"></script>
+    <script src="bootstrap3/js/bootstrap.min.js"></script>
+    <title>折叠菜单</title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            width: 100%;
+            height: 40px;
+            background: #2e6da4;
+            line-height: 40px;
+        }
+        .menu {
+            position: absolute;
+            top: 40px;
+            bottom: 0;
+            width: 200px;
+            background: #1b6d85;
+        }
+        .btn-full{
+            width: 100%;
+
+            border-radius: 0;
+        }
+        #downBtn{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <button id="closeBtn" class="btn btn-danger"><span class="glyphicon glyphicon-menu-up"></span><sapn id="downBtn" class="glyphicon glyphicon-menu-down"></sapn></button>
+</div>
+<div class="menu">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <a class="btn btn-primary btn-full"  role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            搜索引擎
+        </a>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="list-group">
+                <a href="#" class="list-group-item">谷歌</a>
+                <a href="#" class="list-group-item">百度</a>
+                <a href="#" class="list-group-item">搜狗</a>
+                <a href="#" class="list-group-item">神马</a>
+                <a href="#" class="list-group-item">必应</a>
+            </div>
+        </div>
+
+        <a class="btn btn-primary btn-full"  role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            其它网页
+        </a>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="list-group">
+                <a href="#" class="list-group-item">谷歌</a>
+                <a href="#" class="list-group-item">百度</a>
+                <a href="#" class="list-group-item">搜狗</a>
+                <a href="#" class="list-group-item">神马</a>
+                <a href="#" class="list-group-item">必应</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="btn-full">
+    hello world!
+</div>
+
+<script>
+    $("#closeBtn").click(function () {
+        $(".menu").toggle(500,function () {
+            $(".glyphicon-menu-down").toggle();
+            $(".glyphicon-menu-up").toggle();
+        });
+    });
+
+</script>
+</body>
+</html>

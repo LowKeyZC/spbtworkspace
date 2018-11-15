@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zc.dao.PaperMapper">
+    <resultMap id="paperResult" type="com.zc.domain.Paper">
+        <id column="p_id" property="id" jdbcType="VARCHAR"/>
+        <result column="p_name" property="name" jdbcType="VARCHAR"/>
+        <result column="p_create_tm" property="createTm" jdbcType="TIMESTAMP"/>
+        <result column="p_modify_tm" property="modifyTm" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="queryByCondition" resultMap="paperResult" parameterType="paperCondition">
+        SELECT * FROM tb_game_paper WHERE TRUE
+        <if test="lId != null and lId !=''">
+            AND p_id = #{pId}
+        </if>
+        <if test="pName != null and pName != '' or pName == 0">
+            AND p_name = #{pName}
+        </if>
+        <if test="sortRule != null and sortRule != ''">
+            ORDER BY ${sortRule}
+        </if>
+        <if test="start != null and start !='' or start == 0 and size != null and size !='' or size == 0">
+            LIMIT #{start},#{size}
+        </if>
+    </select>
+
+    <select id="queryPaperCount" resultType="Long" parameterType="paperCondition">
+        SELECT count(*) FROM tb_game_paper WHERE TRUE
+        <if test="lId != null and lId !=''">
+            AND p_id = #{pId}
+        </if>
+        <if test="lOrder != null and lOrder != ''">
+            AND p_name = #{pName}
+        </if>
+    </select>
+
+    <update id="modifyPaper">
+        UPDATE tb_game_paper
+        SET p_id = #{id},
+            p_name = #{name},
+            p_create_tm = now(),
+            p_modify_tm = now();
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM tb_game_paper
+        WHERE p_id = #{id}
+    </delete>
+
+    <insert id="insertPaper">
+        INSERT INTO tb_game_paper (p_id, p_name, p_create_tm, p_modify_tm)
+        VALUES (#{id}, #{name}, now(), now());
+    </insert>
+</mapper>
