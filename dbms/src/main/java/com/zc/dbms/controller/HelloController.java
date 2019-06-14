@@ -1,8 +1,8 @@
-package com.zc.mybatis.controller;
+package com.zc.dbms.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.zc.mybatis.entity.User;
-import com.zc.mybatis.service.UserService;
+import com.zc.dbms.entity.User;
+import com.zc.dbms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +33,6 @@ public class HelloController {
     @RequestMapping(value = "queryUsers")
     public PageInfo<User> queryUsers(@RequestParam Integer pageNo,
                                      @RequestParam Integer pageSize) {
-        return userService.queryUsers(pageNo, pageSize);
+        return userService.selectUsers(pageNo, pageSize);
     }
 }

@@ -1,9 +1,7 @@
-package com.zc.mybatis.dao;
+package com.zc.dbms.dao;
 
-import com.zc.mybatis.entity.User;
+import com.zc.dbms.entity.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

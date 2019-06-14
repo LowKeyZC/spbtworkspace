@@ -1,10 +1,10 @@
-package com.zc.mybatis.service;
+package com.zc.dbms.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zc.mybatis.dao.UserDao;
-import com.zc.mybatis.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zc.dbms.annotation.Master;
+import com.zc.dbms.dao.UserDao;
+import com.zc.dbms.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +23,11 @@ public class UserService {
      * @param pageSize
      * @return
      */
-    public PageInfo<User> queryUsers(int pageNo,int pageSize) {
+//    @Master
+    public PageInfo<User> selectUsers(int pageNo, int pageSize) {
         PageHelper.startPage(pageNo,pageSize);
         List<User> users = userDao.queryUsers();
-        return new PageInfo<User>(users);
+        return new PageInfo<>(users);
     }
 
     public User userSearch(String userId) {

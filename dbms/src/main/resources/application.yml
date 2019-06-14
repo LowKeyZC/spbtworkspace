@@ -1,0 +1,28 @@
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.zc.mybatis.entity
+  
+pagehelper:
+  helperDialect: mysql
+  params: count=countSql
+  reasonable: true
+  supportMethodsArguments: true
+  
+spring:
+  datasource:
+    master:
+      jdbc-url: jdbc:mysql://localhost:3306/test
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+    slave1:
+      jdbc-url: jdbc:mysql://localhost:3306/test-slave
+      username: root   # 只读账户
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+    slave2:
+      jdbc-url: jdbc:mysql://localhost:3306/test-slave1
+      username: root   # 只读账户
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
