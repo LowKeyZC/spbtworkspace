@@ -35,4 +35,9 @@ public class HelloController {
                                      @RequestParam Integer pageSize) {
         return userService.selectUsers(pageNo, pageSize);
     }
+
+    @RequestMapping(value = "insertUser")
+    public boolean insertUser() throws Exception {
+        return userService.insert2User();
+    }
 }

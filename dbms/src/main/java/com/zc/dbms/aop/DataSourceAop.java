@@ -4,17 +4,17 @@ import com.zc.dbms.bean.DBContextHolder;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(1)
 public class DataSourceAop {
-    @Pointcut("!@annotation(com.zc.dbms.annotation.Master) " +
-            "&& (execution(* com.zc.dbms.service..*.select*(..)) " +
+    @Pointcut("!@annotation(com.zc.dbms.annotation.Master)" +
+            "&&(execution(* com.zc.dbms.service..*.select*(..))" +
             "|| execution(* com.zc.dbms.service..*.get*(..)))")
-    public void readPointcut() {
-
-    }
+    public void readPointcut() {}
 
     @Pointcut("@annotation(com.zc.dbms.annotation.Master) " +
             "|| execution(* com.zc.dbms.service..*.insert*(..)) " +
@@ -23,9 +23,7 @@ public class DataSourceAop {
             "|| execution(* com.zc.dbms.service..*.edit*(..)) " +
             "|| execution(* com.zc.dbms.service..*.delete*(..)) " +
             "|| execution(* com.zc.dbms.service..*.remove*(..))")
-    public void writePointcut() {
-
-    }
+    public void writePointcut() {}
 
     @Before("readPointcut()")
     public void read() {

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -17,12 +18,6 @@ public class UserService {
     @Resource
     private UserDao userDao;
 
-    /**
-     * pagehelp测试
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
 //    @Master
     public PageInfo<User> selectUsers(int pageNo, int pageSize) {
         PageHelper.startPage(pageNo,pageSize);
@@ -35,6 +30,7 @@ public class UserService {
     }
 
     public void insertUser(User user) {
+        user.setId(UUID.randomUUID().toString().replaceAll("-",""));
         userDao.addUser(user);
     }
 
@@ -42,19 +38,11 @@ public class UserService {
         userDao.delUser(userId);
     }
 
-    public void insert2User() throws Exception {
-        User user01 = new User();
-        user01.setId("001");
-        user01.setName("小王");
-        this.insertUser(user01);
-
-        User user02 = new User();
-        user02.setId("002");
-        user02.setName("小李");
-
-        String str = null;
-        System.out.println(str.length());
-
-        this.insertUser(user02);
+    public boolean insert2User() throws Exception {
+        User user = new User();
+        user.setName("李白");
+        user.setAge(13);
+        this.insertUser(user);
+        return true;
     }
 }

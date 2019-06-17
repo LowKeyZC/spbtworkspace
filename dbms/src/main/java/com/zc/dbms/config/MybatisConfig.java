@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-@EnableTransactionManagement
+@EnableTransactionManagement(order = 2)
 @Configuration
 public class MybatisConfig {
     @Resource(name = "myRoutingDataSource")
