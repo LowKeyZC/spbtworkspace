@@ -4,10 +4,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * TODO 未实现，AOP已实现，但真实查询全部走主库
- */
-@MapperScan("com.zc.dao")
 @SpringBootApplication
 public class DBMSApplication {
 

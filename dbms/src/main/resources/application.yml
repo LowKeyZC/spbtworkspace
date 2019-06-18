@@ -1,7 +1,7 @@
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.zc.mybatis.entity
+  type-aliases-package: com.zc.dbms.entity
   
 pagehelper:
   helperDialect: mysql

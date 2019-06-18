@@ -80,28 +80,20 @@ public class JedisStu {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(10);
         JedisPool pool = new JedisPool(jedisPoolConfig, "localhost", 6379);
-        Jedis jedis = null;
-        try{
-            jedis = pool.getResource();
+        try (Jedis jedis = pool.getResource()) {
             jedis.set("pooledJedis123", "hello jedis pool!");
             jedis.set("pooledJedis456", "hhhhhh");
-            Set<String> set = jedis.keys("pooledJedis" +"*");
-            Iterator<String> it = set.iterator();
-            while(it.hasNext()){
-                String keyStr = it.next();
+            Set<String> set = jedis.keys("pooledJedis" + "*");
+            for (String keyStr : set) {
                 System.out.println(keyStr);
                 jedis.del(keyStr);
             }
             set = jedis.keys("pooledJedis" + "*");
-            System.out.println("redis中存在以pooledJedis开头的键"+set.size());
-        }catch(Exception e){
+            System.out.println("redis中存在以pooledJedis开头的键" + set.size());
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            //还回pool中
-            if(jedis != null){
-                jedis.close();
-            }
         }
+        //还回pool中
         pool.close();
     }
 

@@ -23,7 +23,7 @@ import java.util.Properties;
 public class ExamplePlugins implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        System.out.println("mybatis插件打印了乐乐");
+        System.out.println("mybatis自定义插件");
         return invocation.proceed();
     }
 
