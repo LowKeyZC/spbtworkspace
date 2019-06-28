@@ -3,3 +3,7 @@ spring:
       view:
         prefix: "classpath:/templates/"
         suffix: ".html"
+
+configbean:
+  id: 123
+  name: zc

@@ -1,26 +1,36 @@
 package com.zc.controller;
 
 import com.sun.deploy.util.ArrayUtil;
+import com.zc.bean.ConfigBean;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.swing.tree.TreeNode;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Controller
+@RestController
 public class HomeController {
+
+    @Resource
+    private ConfigBean configBean;
 
     @GetMapping(value = "/home")
     public String getHome() {
-        return "home3";
+        System.out.println("id=" + configBean.getId() + " name=" + configBean.getName());
+        return "success";
     }
 
     public static void main(String[] args) {
-        Long a = Long.valueOf(null);
-        System.out.println(a);
+        String str = "aaaxxxbbbb";
+        String result = str.replaceAll("aaa", "").replaceAll("bbbb", "");
+
     }
 
     public static String m() {
@@ -52,4 +62,5 @@ public class HomeController {
         }
         return "aaa";
     }
+
 }

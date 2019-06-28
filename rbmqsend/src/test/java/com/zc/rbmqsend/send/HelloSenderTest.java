@@ -8,20 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
+
 @SpringBootTest(classes=RbmqsendApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class HelloSenderTest {
 
-    @Autowired
+    @Resource
     private HelloSender helloSender;
 
-    @Test
+    /*@Test
     public void testRabbit() {
-        helloSender.sendDETest();
-    }
+        helloSender.sentTest("hello");
+    }*/
 
-    @Test
+    /*@Test
     public void testRabbit02(){
         helloSender.sendTETest();
-    }
+    }*/
 }

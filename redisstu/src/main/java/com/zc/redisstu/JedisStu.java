@@ -7,7 +7,7 @@ import redis.clients.jedis.*;
 
 public class JedisStu {
     public static void main(String[] args) throws InterruptedException {
-        commondStu2();
+        commandstu();
     }
 
     public static void commondStu2() {

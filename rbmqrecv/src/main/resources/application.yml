@@ -1,0 +1,11 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: spirng-boot-rabbitmq-recver
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: "/"
