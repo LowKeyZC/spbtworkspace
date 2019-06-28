@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/?lang=en_US">English(US)</a>
+<a href="/?lang=zh_CN">简体中文</a>
+
+<br />
+<h2><span th:text="${welcomeLang}"></span></h2>
+<br />
+<label th:text="#{user.name}"></label><input type="text"> <br />
+<label th:text="#{user.password}"></label><input type="text"><br />
+<input type="button" th:value="#{user.btn}"/>
+</body>
+</html>
